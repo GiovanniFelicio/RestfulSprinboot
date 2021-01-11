@@ -60,4 +60,56 @@ public class ErrorDetail {
     public void setDeveloperMessage(String developerMessage) {
         this.developerMessage = developerMessage;
     }
+    
+    public static class Builder {
+
+        private String title;
+        private int status;
+        private String detail;
+        private long timestamp;
+        private String developerMessage;
+
+        private Builder() {
+        }
+
+        public static Builder builder() {
+            return new Builder();
+        }
+
+        public Builder title(final String value) {
+            this.title = value;
+            return this;
+        }
+
+        public Builder status(final int value) {
+            this.status = value;
+            return this;
+        }
+
+        public Builder detail(final String value) {
+            this.detail = value;
+            return this;
+        }
+
+        public Builder timestamp(final long value) {
+            this.timestamp = value;
+            return this;
+        }
+
+        public Builder developerMessage(final String value) {
+            this.developerMessage = value;
+            return this;
+        }
+
+        public ErrorDetail build() {
+            ErrorDetail ErrorDetail = new ErrorDetail();
+            ErrorDetail.setTitle(title);
+            ErrorDetail.setStatus(status);
+            ErrorDetail.setDetail(detail);
+            ErrorDetail.setTimestamp(timestamp);
+            ErrorDetail.setDeveloperMessage(developerMessage);
+
+            return ErrorDetail;
+        }
+    }
 }

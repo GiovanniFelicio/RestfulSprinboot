@@ -7,7 +7,6 @@ package com.softwery.error;
 
 import java.util.List;
 import java.util.Map;
-import org.apache.http.message.BasicNameValuePair;
 
 /**
  *

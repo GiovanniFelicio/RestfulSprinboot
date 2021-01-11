@@ -13,8 +13,10 @@ import com.softwery.utils.DateUtil;
 import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,12 +42,13 @@ public class PostEndpoint {
     private DateUtil dateUtil;
 
     @GetMapping(path = "/list")
-    public ResponseEntity<?> listPost() {
+    public ResponseEntity<?> listPost(Pageable pageable) {
 
-        return new ResponseEntity<>(postRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(postRepository.findAll(pageable), HttpStatus.OK);
     }
 
     @GetMapping(path = "/{id}")
+    @PreAuthorize("hasRole('ADMINN')")
     public ResponseEntity<?> getPostById(@PathVariable("id") Long id) {
 
         Post post = getIfPostExists(id);
@@ -62,6 +65,8 @@ public class PostEndpoint {
     @PostMapping
     public ResponseEntity<?> save(@Valid @RequestBody Post post) {
 
+        postRepository.save(post);
+        
         return new ResponseEntity<>(post, HttpStatus.CREATED);
     }
 
